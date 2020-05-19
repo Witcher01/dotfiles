@@ -1,0 +1,285 @@
+[colors]
+background = ${xrdb:color0:#222}
+foreground = ${xrdb:color7:#222}
+foreground-alt = ${xrdb:color7:#222}
+primary = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+tertiary = ${xrdb:color2:#222}
+quaternary = ${xrdb:color4:#222}
+quinary = ${xrdb:color5:#222}
+alert = ${xrdb:color3:#222}
+
+[global/wm]
+margin-top = 5
+margin-bottom = 5
+
+[bar/example]
+monitor = ${env:MONITOR:}
+width = 100%
+height = 20
+offset-x = 0
+offset-y = 0
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+overline-size = 1
+overline-color = #840094
+underline-size = 1
+underline-color = #840094
+
+padding-left = 0
+padding-right = 2
+module-margin-left = 1
+module-margin-right = 2
+
+font-0 = "monaco:pixelsize=10;1"
+font-1 = "hack:pixelsize=10;1"
+font-2 = "FontAwesome:size=9;0"
+;modules-left = i3
+;modules-center = mpd
+modules-left = keyboardlayout mpd volume
+modules-right = temperature cpu memory wlan eth battery date
+
+tray-position = right
+tray-padding = 2
+tray-transparent = true
+override-redirect = true
+
+[module/mpd]
+type = internal/mpd
+
+format-online = <label-song>  <bar-progress>
+
+host = 127.0.0.1
+port = 6600
+
+interval = 2
+
+label-song = %artist% - %title%
+
+bar-progress-width = 15
+bar-progress-indicator = |
+bar-progress-fill = -
+bar-progress-empty = -
+
+toggle-on-foreground = ${colors.primary}
+toggle-off-foreground = #66
+
+[module/xbacklight]
+type = internal/xbacklight
+
+format = <label> <bar>
+label = ""
+
+bar-width = 10
+bar-indicator = │
+bar-indicator-foreground = #ff
+bar-indicator-font = 2
+bar-fill = ─
+bar-fill-font = 2
+bar-fill-foreground = #9f78e1
+bar-empty = ─
+bar-empty-font = 2
+bar-empty-foreground = ${colors.foreground-alt}
+
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+format = <label> <ramp-coreload>
+label =  %percentage:2%%
+
+;format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.secondary}
+
+ramp-coreload-0 = ▁
+ramp-coreload-0-foreground = #005e76
+ramp-coreload-1 = ▂
+ramp-coreload-1-foreground = #005e76
+ramp-coreload-2 = ▃
+ramp-coreload-2-foreground = #fba922
+ramp-coreload-3 = ▅
+ramp-coreload-3-foreground = #fba922
+ramp-coreload-4 = ▆
+ramp-coreload-4-foreground = #ff5555
+ramp-coreload-5 = ▇
+ramp-coreload-5-foreground = #ff5555
+
+[module/memory]
+type = internal/memory
+interval = 0.5
+label = ram
+format = <label> <bar-used>
+
+bar-used-width = 10
+bar-used-foreground-0 = #005e76
+bar-used-foreground-1 = #005e76
+bar-used-foreground-2 = #fba922
+bar-used-foreground-3 = #ff5555
+bar-used-indicator = |
+bar-used-indicator-font = 6
+bar-used-indicator-foreground = #ff
+bar-used-fill = ─
+bar-used-fill-font = 6
+bar-used-empty = ─
+bar-used-empty-font = 6
+bar-used-empty-foreground = #444444
+
+format-prefix-foreground = ${colors.foreground-alt}
+format-underline = ${colors.tertiary}
+
+[module/wlan]
+type = internal/network
+interface = wlp5s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+format-connected-underline = ${colors.primary}
+format-disconnected-underline = ${self.format-connected-underline}
+
+label-connected =  %essid%
+;label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
+
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
+ramp-signal-foreground = ${colors.foreground-alt}
+
+[module/eth]
+type = internal/network
+interface = enp4s0
+interval = 3.0
+
+format-connected-underline = ${colors.tertiary}
+format-connected-prefix = " "
+format-connected-foreground-foreground = ${colors.foreground-alt}
+label-connected = %local_ip%
+
+format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+label-disconnected-foreground = ${colors.foreground-alt}
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = %d-%m-%Y
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format =  <label>
+format-underline = ${colors.quaternary}
+
+label = %date% %time%
+
+[module/volume]
+type = internal/volume
+
+master-mixer = Master
+
+format-volume = <label-volume> <bar-volume>
+label-volume = ""
+label-volume-foreground = ${root.foreground}
+
+format-muted-prefix = " "
+format-muted-foreground = ${colors.foreground-alt}
+label-muted = 🔇 muted
+label-muted-foreground = #66
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+
+bar-volume-gradient = false
+bar-volume-indicator = │
+bar-volume-indicator-font = 2
+bar-volume-indicator-foreground = #ff
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+bar-volume-empty-foreground = ${colors.foreground-alt}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+
+format-volume = <ramp-volume> <label-volume>
+format-muted = <label-muted>
+
+label-volume = %percentage%%
+label-muted = 
+label-muted-foreground = #66
+
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+[module/battery]
+type = internal/battery
+battery = BAT0
+adapter = AC0
+full-at = 98
+time-format = %H:%M
+format-charging = <label-charging> <animation-charging> 
+format-charging-underline = ${colors.quaternary}
+
+format-discharging = <label-discharging>
+format-discharging-underline = ${self.format-charging-underline}
+format-full = <label-full>
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.foreground-alt}
+format-full-underline = ${self.format-charging-underline}
+
+label-charging =  %percentage%%
+label-discharging =  %percentage%% %time%
+label-full = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+interval = 0.5
+
+format = <label>
+format-underline = ${colors.secondary}
+format-warn = <label-warn>
+format-warn-underline = ${self.format-underline}
+
+label =   %temperature:2%
+label-warn =  %temperature%
+label-warn-foreground = ${colors.alert}
+
+[module/keyboardlayout]
+type = custom/menu
+
+format-spacing = 1
+label-open = 
+label-open-foreground = ${colors.foreground}
+label-close = 
+label-close-foreground = ${colors.foreground}
+label-separator = |
+label-separator-foreground = ${colors.foreground-alt}
+
+menu-0-0 = de
+menu-0-0-exec = setxkbmap de
+
+menu-0-1 = gb
+menu-0-1-exec = setxkbmap gb
+
+; vim:ft=dosini
