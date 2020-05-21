@@ -163,6 +163,7 @@ alias mirrorlist-new="curl -s 'https://www.archlinux.org/mirrorlist/?country=AT&
 alias mirrorlist-newest="sudo reflector --country Germany --country France --country Denmark --country Luxembourg --country Romania --country Switzerland --latest 20 --protocol https --sort rate --save /etc/pacman.d/mirrorlist"
 alias toxic-tor='toxic --force-tcp --SOCKS5-proxy 127.0.0.1 9050'
 alias wiki='$EDITOR $HOME/Documents/vimwiki/index.md'
+alias wiki-git='$EDITOR $HOME/Documents/vimwiki/witcher01.github.io/index.md'
 alias compton='compton -b --config $XDG_CONFIG_HOME/compton.conf'
 alias eclim='$HOME/.eclipse/org.eclipse.platform_4.15.0_155965261_linux_gtk_x86_64/eclimd'
 alias sr='sr -browser=$BROWSERCLI'
