@@ -138,6 +138,7 @@ alias rld-tmux='tmux source-file $HOME/.tmux.conf'
 #alias rld-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
 alias rld-xresources='source $HOME/.Xresources'
 alias rld-gpg-agent='gpg-connect-agent reloadagent /bye'
+alias rld-systemd-daemon='systemctl --user daemon-reload'
 
 ### other aliases ###
 alias ll='ls -alF'
