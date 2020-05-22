@@ -14,9 +14,9 @@ source $XDG_CONFIG_HOME/neomutt/mailboxes.neomuttrc
 #startup-hook 'echo `bash $XDG_CONFIG_HOME/scripts/new_mail.sh $HOME/mail $XDG_CONFIG_HOME/neomutt/.mailsynclast`'
 
 # unbing default keys
-unbind index,pager g
-unbind index,pager \Cu
-unbind index,pager \Cd
+unbind index,pager,attach g
+unbind index,pager,attach \Cu
+unbind index,pager,attach \Cd
 
 set sleep_time = 0
 set editor = $EDITOR # the editor with which to compose mails
@@ -32,14 +32,14 @@ alternative_order text/plain text/enriched text/html
 
 # shortcuts
 bind editor <space> noop
-bind index G last-entry
+bind index,attach G last-entry
 bind pager G bottom
-bind index gg first-entry
+bind index,attach gg first-entry
 bind pager gg top
 bind pager j next-line
 bind pager k previous-line
-bind index,pager \Cd half-down
-bind index,pager \Cu half-up
+bind index,pager,attach \Cd half-down
+bind index,pager,attach \Cu half-up
 bind index D delete-message
 bind index U undelete-message
 macro index,pager S '<sync-mailbox>'
@@ -64,7 +64,7 @@ unset mime_forward                   # forward attachments as part of body
 
 set status_chars = " *%A"
 set status_format = "[ Folder: %f ] [%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]%>─%?p?( %p postponed )?"
-set index_format = "(%-3C) [%Z] %?X?A&-? %D  %-20.20F  %s"
+set index_format = "(%-3C) [%Z] %?X?A&-? %D  %-40.40F  %s"
 set date_format = "%d.%m.%y %I:%M"
 set sort = 'threads' # before: reverse-date
 set sort_aux = reverse-last-date-received
