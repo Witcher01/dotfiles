@@ -262,15 +262,15 @@ vpn() {
 # DEMO: http://www.youtube.com/watch?v=JkyodHenTuc
 # LINK: http://docs.python.org/library/math.html
 calc() {
-    if which python2 &>/dev/null; then
-        python2 -ic "from __future__ import division; from math import *; from random import *"
-     elif which python3 &>/dev/null; then
-         python3 -ic "from math import *; import cmath"
-    elif which bc &>/dev/null; then
-        bc -q -l
-    else
-        echo "Requires python2, python3 or bc for calculator features"
-    fi
+	if which python3 &>/dev/null; then
+		python3 -ic "from math import *; import cmath; from fractions import Fraction"
+	elif which python2 &>/dev/null; then
+		python2 -ic "from __future__ import division; from math import *; from random import *"
+	elif which bc &>/dev/null; then
+		bc -q -l
+	else
+		echo "Requires python2, python3 or bc for calculator features"
+	fi
 }
 
 # convert video to webm
