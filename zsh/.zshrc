@@ -34,35 +34,35 @@ source "$XDG_CONFIG_HOME/zsh/plugins/forgit.plugin.zsh"
 
 # fzf colorscheme
 _gen_fzf_default_opts() {
-  local base03="234"
-  local base02="235"
-  local base01="240"
-  local base00="241"
-  local base0="244"
-  local base1="245"
-  local base2="254"
-  local base3="230"
-  local yellow="136"
-  local orange="166"
-  local red="160"
-  local magenta="125"
-  local violet="61"
-  local blue="33"
-  local cyan="37"
-  local green="64"
+	local base03="234"
+	local base02="235"
+	local base01="240"
+	local base00="241"
+	local base0="244"
+	local base1="245"
+	local base2="254"
+	local base3="230"
+	local yellow="136"
+	local orange="166"
+	local red="160"
+	local magenta="125"
+	local violet="61"
+	local blue="33"
+	local cyan="37"
+	local green="64"
 
-  # Comment and uncomment below for the light theme.
+	# Comment and uncomment below for the light theme.
 
-  # Solarized Dark color scheme for fzf
-  export FZF_DEFAULT_OPTS="
-    --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
-    --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
-  "
-  ## Solarized Light color scheme for fzf
-  #export FZF_DEFAULT_OPTS="
-  #  --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
-  #  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
-  #"
+	# Solarized Dark color scheme for fzf
+	export FZF_DEFAULT_OPTS="
+	  --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
+	  --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
+	"
+	## Solarized Light color scheme for fzf
+	#export FZF_DEFAULT_OPTS="
+	#  --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
+	#  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
+	#"
 }
 _gen_fzf_default_opts
 
@@ -195,18 +195,6 @@ fzf_prev() {
 zle -N fzf_prev
 bindkey '^P' fzf_prev
 
-# fshow - git commit browser
-fshow() {
-	git log --graph --color=always \
-		--format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
-	fzf --ansi --no-sort --reverse --tiebreak=index --bind=ctrl-s:toggle-sort \
-		--bind "ctrl-m:execute:
-				(grep -o '[a-f0-9]\{7\}' | head -1 |
-				xargs -I % sh -c 'git show --color=always % | less -R') << 'FZF-EOF'
-				{}
-FZF-EOF"
-}
-
 # fe [FUZZY PATTERN] - Open the selected file with the default editor
 #   - Bypass fuzzy finder if there's only one match (--select-1)
 #   - Exit if there's no match (--exit-0)
@@ -214,14 +202,6 @@ fe() (
 	IFS=$'\n' files=($(fzf-tmux --query="$1" --multi --select-1 --exit-0))
 	[[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
 )
-
-# fd - cd to selected directory
-fd() {
-	local dir
-	dir=$(find ${1:-.} -path '*/\.*' -prune \
-		-o -type d -print 2> /dev/null | fzf +m) &&
-	cd "$dir"
-}
 
 # fkill - kill processes - list only the ones you can kill. Modified the earlier script.
 fkill() {
@@ -241,11 +221,11 @@ fkill() {
 ## general functions ##
 # global alias
 globalalias() {
-    if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-        zle _expand_alias
-        zle expand-word
-    fi
-    zle self-insert
+	if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
+		zle _expand_alias
+		zle expand-word
+	fi
+	zle self-insert
 }
 zle -N globalalias
 bindkey " " globalalias # space key to expand globalalias
@@ -254,8 +234,8 @@ bindkey -M isearch " " magic-space
 
 # connect to nordvpn vpn server via openvpn udp
 vpn() {
-    cd /etc/openvpn/nordvpn/
-    sudo openvpn "$1.nordvpn.com.udp1194.ovpn"
+	cd /etc/openvpn/nordvpn/
+	sudo openvpn "$1.nordvpn.com.udp1194.ovpn"
 }
 
 # DESC: cli calculator (Ctrl+D to exit)
@@ -275,79 +255,78 @@ calc() {
 
 # convert video to webm
 convert-to-video-webm() {
-  if [ $# -lt 1 ]; then
-    echo -e "Usage: $0 <filename>"
-    echo -e "\nExample:\n$0 file.mp4"
-    echo -e "$0 file1.mp4 file2.mp4 file3.mp4"
-    echo -e "$0 *.mp4"
-    return 1
-  fi
+	if [ $# -lt 1 ]; then
+		echo -e "Usage: $0 <filename>"
+		echo -e "\nExample:\n$0 file.mp4"
+		echo -e "$0 file1.mp4 file2.mp4 file3.mp4"
+		echo -e "$0 *.mp4"
+		return 1
+	fi
 
-  myArray=( "$@" )
+	myArray=( "$@" )
 
 
-  for arg in "${myArray[@]}"; do
-    while [ ! -f "${arg%.*}".webm ]
-    do
-      ffmpeg -i "$arg" -codec:v libvpx -crf 10 -b:v 1M -codec:a libvorbis "${arg%.*}".webm
-    done
-  done
+	for arg in "${myArray[@]}"; do
+		while [ ! -f "${arg%.*}".webm ]; do
+			ffmpeg -i "$arg" -codec:v libvpx -crf 10 -b:v 1M -codec:a libvorbis "${arg%.*}".webm
+		done
+	done
 }
 
 # open and mount a luks volume and create folder with volume name in /mnt
 luks-open() {
-    sudo cryptsetup open "$1" "$2"
-    mountpoint="/mnt/$2"
-    sudo mkdir "${mountpoint}"
-    sudo mount "/dev/mapper/$2" "${mountpoint}"
+	sudo cryptsetup open "$1" "$2"
+	mountpoint="/mnt/$2"
+	sudo mkdir "${mountpoint}"
+	sudo mount "/dev/mapper/$2" "${mountpoint}"
 }
 
 # close and unmount luks volume and delete folder with volume name in /mnt
 luks-close() {
-    mountpoint="/mnt/$1"
-    sudo umount "${mountpoint}"
-    sudo rm -r "${mountpoint}"
-    sudo cryptsetup close "$1"
+	mountpoint="/mnt/$1"
+	sudo umount "${mountpoint}"
+	sudo rm -r "${mountpoint}"
+	sudo cryptsetup close "$1"
 }
 
 start-bt() {
-    sudo pulseaudio --check || sudo pulseaudio --start --daemonize
-    sudo systemctl start bluetooth.service
-    bluetoothctl
+	sudo pulseaudio --check || sudo pulseaudio --start --daemonize
+	sudo systemctl start bluetooth.service
+	bluetoothctl
 }
 
 osu() {
-    WINEPREFIX="$HOME/.wine-osu" WINEARCH=win32 /opt/wine-osu/bin/wine $HOME/Games/osu\!/osu\!.exe "$@"
+	WINEPREFIX="$HOME/.wine-osu" WINEARCH=win32 /opt/wine-osu/bin/wine $HOME/Games/osu\!/osu\!.exe "$@"
 }
 
 get_pw() {
-    head /dev/urandom | tr -dc A-Za-z0-9 | head -c $1 ; echo ''
+	head /dev/urandom | tr -dc A-Za-z0-9 | head -c $1 ; echo ''
 }
 
 get_special_pw() {
-    #head /dev/urandom | tr -dc '!"§$%&/()=?A-Za-z0-9' | head -c $1 ; echo ''
-    gpg --armor --gen-random 2 $1
+	#head /dev/urandom | tr -dc '!"§$%&/()=?A-Za-z0-9' | head -c $1 ; echo ''
+	gpg --armor --gen-random 2 $1
 }
 
 # link by first argument
 # video name by second argument
 download_m3u8() {
-    ffmpeg -protocol_whitelist file,http,https,tcp,tls,cryptio -i "$1" -c copy "$2"
+	ffmpeg -protocol_whitelist file,http,https,tcp,tls,cryptio -i "$1" -c copy "$2"
 }
 
 # merge multiple pdfs to one
 # first argument is the output file name
 # second argument are all the pdfs to be merged
 merge_pdfs() {
-    output_file="$1"
-    shift
-    gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile="$output_file" "$@"
+	output_file="$1"
+	shift
+	gs -dBATCH -dNOPAUSE -q -sDEVICE=pdfwrite -dPDFSETTINGS=/prepress -sOutputFile="$output_file" "$@"
 }
 
 unzip_all() {
-    for file in ./*
-    do
-        unzip "${file%%.zip}" -d "${file%%.zip}"
-    done
+	for file in ./*
+	do
+		unzip "${file%%.zip}" -d "${file%%.zip}"
+	done
 }
 
