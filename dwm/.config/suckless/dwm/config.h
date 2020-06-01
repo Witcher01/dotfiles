@@ -91,6 +91,7 @@ static const char *brightdown[] = { "brightnessctl", "set", "10%-", NULL };
 static const char *mutetoggle[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 static const char *audioup[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *audiodown[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *surfraw_gui[] = { "surfraw", "$(surfraw -elvi | awk '{print $1}' | dmenu)", NULL };
 
 
 static Key keys[] = {
@@ -132,35 +133,36 @@ static Key keys[] = {
 
 	/* Custom shortcuts */
 	{ MODKEY,                       XK_d,      spawn,          {.v = dmenucmd } },
-	{ MODKEY,						XK_Return, spawn,		   {.v = termcmd } },
+	{ MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
 	{ MODKEY|ShiftMask,             XK_i,      incnmaster,     {.i = +1 } },
 	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-	{ MODKEY,						XK_r,      spawn,		   {.v = termranger } },
-	{ MODKEY,						XK_p,	   spawn,		   {.v = passmenu } },
-	{ MODKEY|ShiftMask,				XK_p,	   spawn,		   {.v = lockscreen } },
+	{ MODKEY,                       XK_r,      spawn,          {.v = termranger } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = passmenu } },
+	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = lockscreen } },
+	{ MODKEY,                       XK_s,      spawn,          {.v = surfraw_gui } },
     /* replace toggle bar with dmenubar */
 	{ MODKEY,                       XK_b,      spawn,       {.v = dmenubar } },
 	/* XF86 keys */
 	/* configuration for spotify */
-	{ 0,							XF86XK_AudioPlay,	spawn,	{.v = spotifypause } },
-	{ 0,							XF86XK_AudioStop,	spawn,	{.v = spotifytruepause } },
-	{ 0,							XF86XK_AudioPrev,	spawn,	{.v = spotifyprev } },
-	{ 0,							XF86XK_AudioNext,	spawn,	{.v = spotifynext } },
+	{ 0,                            XF86XK_AudioPlay,        spawn, {.v = spotifypause } },
+	{ 0,                            XF86XK_AudioStop,        spawn, {.v = spotifytruepause } },
+	{ 0,                            XF86XK_AudioPrev,        spawn, {.v = spotifyprev } },
+	{ 0,                            XF86XK_AudioNext,        spawn, {.v = spotifynext } },
     /* configuration for cmus */
-	/* { 0,							XF86XK_AudioPlay,	spawn,	{.v = cmuspause } }, */
-	/* { 0,							XF86XK_AudioStop,	spawn,	{.v = cmustruepause } }, */
-	/* { 0,							XF86XK_AudioPrev,	spawn,	{.v = cmusprev } }, */
-	/* { 0,							XF86XK_AudioNext,	spawn,	{.v = cmusnext } }, */
-	/* { 0,							XF86XK_AudioRaiseVolume,	spawn,	{.v = cmusaudioup } }, */
-	/* { 0,							XF86XK_AudioLowerVolume,	spawn,	{.v = cmusaudiodown } }, */
+	/* { 0,                            XF86XK_AudioPlay,        spawn, {.v = cmuspause } }, */
+	/* { 0,                            XF86XK_AudioStop,        spawn, {.v = cmustruepause } }, */
+	/* { 0,                            XF86XK_AudioPrev,        spawn, {.v = cmusprev } }, */
+	/* { 0,                            XF86XK_AudioNext,        spawn, {.v = cmusnext } }, */
+	/* { 0,                            XF86XK_AudioRaiseVolume, spawn, {.v = cmusaudioup } }, */
+	/* { 0,                            XF86XK_AudioLowerVolume, spawn, {.v = cmusaudiodown } }, */
 
-	{ 0,							XF86XK_MonBrightnessUp,	spawn,	{.v = brightup } },
-	{ 0,							XF86XK_MonBrightnessDown,	spawn,	{.v = brightdown } },
-	{ 0,							XF86XK_AudioMute,	spawn,	{.v = mutetoggle } },
-	{ 0,							XF86XK_AudioRaiseVolume,	spawn,	{.v = audioup } },
-	{ 0,							XF86XK_AudioLowerVolume,	spawn,	{.v = audiodown } },
+	{ 0,                            XF86XK_MonBrightnessUp,     spawn, {.v = brightup } },
+	{ 0,                            XF86XK_MonBrightnessDown,   spawn, {.v = brightdown } },
+	{ 0,                            XF86XK_AudioMute,           spawn, {.v = mutetoggle } },
+	{ 0,                            XF86XK_AudioRaiseVolume,    spawn, {.v = audioup } },
+	{ 0,                            XF86XK_AudioLowerVolume,    spawn, {.v = audiodown } },
 };
 
 /* button definitions */
