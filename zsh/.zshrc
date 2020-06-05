@@ -102,16 +102,6 @@ bindkey -M viins '^r' history-incremental-search-backward
 bindkey -M vicmd '^r' history-incremental-search-backward
 
 #### Aliases ####
-### Global aliases ###
-
-alias -g L='| less'
-alias -g C='| wc -l'
-alias -g H='| sed 11q'
-alias -g T='| tail'
-alias -g G='| grep'
-alias -g C='$XDG_CONFIG_HOME/'
-alias -g F='| fzf'
-
 ### configurations ###
 alias cfg-zshrc='$EDITOR $HOME/.zshrc'
 alias cfg-zprofile='$EDITOR $HOME/.zprofile'
@@ -219,19 +209,6 @@ fkill() {
 }
 
 ## general functions ##
-# global alias
-globalalias() {
-	if [[ $LBUFFER =~ ' [A-Z0-9]+$' ]]; then
-		zle _expand_alias
-		zle expand-word
-	fi
-	zle self-insert
-}
-zle -N globalalias
-bindkey " " globalalias # space key to expand globalalias
-bindkey "^ " magic-space # control-space to bypass completion
-bindkey -M isearch " " magic-space
-
 # connect to nordvpn vpn server via openvpn udp
 vpn() {
 	cd /etc/openvpn/nordvpn/
