@@ -307,3 +307,11 @@ unzip_all() {
 	done
 }
 
+# https://github.com/gotbletu/dotfiles_v2/blob/master/normal_user/function/.config/function/functionrc#L1670-L1675
+ffcast-fullscreen-videotrack() {
+	ffmpeg -f x11grab -r 30 \
+		-s $(xwininfo -root | grep 'geometry' |awk '{print $2;}' | cut -d\+ -f1) \
+		-i :0.0 -vcodec libx264 -pix_fmt yuv444p -preset ultrafast -crf 0 \
+		-threads 0 -y screenrecording.mkv
+}
+
