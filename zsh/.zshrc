@@ -1,6 +1,6 @@
 ### Global user variables ###
 ## global system variables are now in /etc/profile
-export EDITOR=vim
+export EDITOR=nvim
 export BROWSER=firefox
 export BROWSERCLI=lynx
 export _JAVA_AWT_WM_NONREPARENTING=1
