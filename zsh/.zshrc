@@ -108,6 +108,7 @@ alias cfg-zprofile='$EDITOR $HOME/.zprofile'
 alias cfg-gpg='$EDITOR $HOME/.gnupg/gpg.conf'
 alias cfg-gpg-agent='$EDITOR $HOME/.gnupg/gpg-agent.conf'
 alias cfg-vimrc='$EDITOR $HOME/.vimrc'
+alias cfg-nvimrc='$EDITOR $XDG_CONFIG_HOME/nvim/init.vim'
 alias cfg-xinitrc='$EDITOR $HOME/.xinitrc'
 alias cfg-xinputrc='$EDITOR $HOME/.xinputrc'
 alias cfg-xresources='$EDITOR $HOME/.Xresources'
@@ -121,6 +122,8 @@ alias cfg-polybar='$EDITOR $XDG_CONFIG_HOME/polybar/config'
 alias cfg-compton='$EDITOR $XDG_CONFIG_HOME/compton.conf'
 alias cfg-dwm='$EDITOR $XDG_CONFIG_HOME/suckless/dwm/config.h'
 alias cfg-st='$EDITOR $XDG_CONFIG_HOME/suckless/st/config.h'
+alias cfg-newsboat='$EDITOR $HOME/.newsboat/config'
+alias cfg-newsboat-urls='$EDITOR $HOME/.newsboat/urls'
 
 ### configurations reload ###
 alias rld-zshrc='source $HOME/.zshrc'
@@ -160,6 +163,9 @@ alias eclim='$HOME/.eclipse/org.eclipse.platform_4.15.0_155965261_linux_gtk_x86_
 alias sr='sr -browser=$BROWSERCLI'
 alias surfraw='surfraw -browser=$BROWSER'
 alias check-mail='new_mail $HOME/mail $XDG_CONFIG_HOME/neomutt/.mailsynclast'
+# don't leave mpdas running all the time as listening to something else like spotify messes up scrobbling and what is currently playing
+alias mpdas-start='systemctl --user start mpdas'
+alias mpdas-stop='systemctl --user stop mpdas'
 
 #### Functions ####
 ## fzf functions ##
@@ -312,6 +318,6 @@ ffcast-fullscreen-videotrack() {
 	ffmpeg -f x11grab -r 30 \
 		-s $(xwininfo -root | grep 'geometry' |awk '{print $2;}' | cut -d\+ -f1) \
 		-i :0.0 -vcodec libx264 -pix_fmt yuv444p -preset ultrafast -crf 0 \
-		-threads 0 -y screenrecording.mkv
+		-threads 0 -y "$1"
 }
 

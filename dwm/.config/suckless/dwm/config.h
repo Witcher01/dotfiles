@@ -72,9 +72,7 @@ static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont,
 static const char *termcmd[]  = { "st", NULL };
 
 /* custom commands */
-static const char *termranger[] = { "st", "-e", "ranger", NULL };
 static const char *dmenubar[] = { "dmenubar", NULL };
-static const char *passmenu[] = { "passmenu", "-i", NULL };
 static const char *lockscreen[] = { "slock", NULL };
 static const char *spotifypause[] = { "dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.PlayPause", NULL };
 static const char *spotifytruepause[] = { "dbus-send", "--print-reply", "--dest=org.mpris.MediaPlayer2.spotify", "/org/mpris/MediaPlayer2", "org.mpris.MediaPlayer2.Player.Pause", NULL };
@@ -91,7 +89,6 @@ static const char *brightdown[] = { "brightnessctl", "set", "10%-", NULL };
 static const char *mutetoggle[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 static const char *audioup[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *audiodown[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
-static const char *surfraw_gui[] = { "surfraw", "$(surfraw -elvi | awk '{print $1}' | dmenu)", NULL };
 
 
 static Key keys[] = {
@@ -138,10 +135,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_d,      incnmaster,     {.i = -1 } },
 	{ MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
 	{ MODKEY|ShiftMask,             XK_q,      killclient,     {0} },
-	{ MODKEY,                       XK_r,      spawn,          {.v = termranger } },
-	{ MODKEY,                       XK_p,      spawn,          {.v = passmenu } },
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = lockscreen } },
-	{ MODKEY,                       XK_s,      spawn,          {.v = surfraw_gui } },
     /* replace toggle bar with dmenubar */
 	{ MODKEY,                       XK_b,      spawn,       {.v = dmenubar } },
 	/* XF86 keys */

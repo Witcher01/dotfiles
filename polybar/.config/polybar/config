@@ -38,12 +38,11 @@ font-1 = "hack:pixelsize=10;1"
 font-2 = "FontAwesome:size=9;0"
 ;modules-left = i3
 ;modules-center = mpd
-modules-left = keyboardlayout mpd volume
+modules-left = keyboardlayout volume mpd
 modules-right = temperature cpu memory wlan eth battery date
 
 tray-position = right
 tray-padding = 2
-tray-transparent = true
 override-redirect = true
 
 [module/mpd]
@@ -261,8 +260,8 @@ format-underline = ${colors.secondary}
 format-warn = <label-warn>
 format-warn-underline = ${self.format-underline}
 
-label =   %temperature:2%
-label-warn =  %temperature%
+label =   %temperature-c:2%
+label-warn =  %temperature-c%
 label-warn-foreground = ${colors.alert}
 
 [module/keyboardlayout]
