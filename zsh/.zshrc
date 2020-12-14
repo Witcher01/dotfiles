@@ -25,49 +25,62 @@ zstyle ':completion:*' rehash true
 autoload -Uz compinit
 compinit
 
+# vi mode
+bindkey -v
+
 HISTFILE=$HOME/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 
 #### Plugins ####
 source "$XDG_CONFIG_HOME/zsh/plugins/forgit.plugin.zsh"
+. "$XDG_CONFIG_HOME/zsh/plugins/z.sh"
+_Z_DATA="$XDG_CONFIG_HOME/zsh/.z"
+source "$XDG_CONFIG_HOME/zsh/plugins/fz.plugin.zsh"
+source "/usr/share/fzf/key-bindings.zsh"
+source "/usr/share/fzf/completion.zsh"
 
 # fzf colorscheme
-_gen_fzf_default_opts() {
-	local base03="234"
-	local base02="235"
-	local base01="240"
-	local base00="241"
-	local base0="244"
-	local base1="245"
-	local base2="254"
-	local base3="230"
-	local yellow="136"
-	local orange="166"
-	local red="160"
-	local magenta="125"
-	local violet="61"
-	local blue="33"
-	local cyan="37"
-	local green="64"
+#_gen_fzf_default_opts() {
+#	local base03="234"
+#	local base02="235"
+#	local base01="240"
+#	local base00="241"
+#	local base0="244"
+#	local base1="245"
+#	local base2="254"
+#	local base3="230"
+#	local yellow="136"
+#	local orange="166"
+#	local red="160"
+#	local magenta="125"
+#	local violet="61"
+#	local blue="33"
+#	local cyan="37"
+#	local green="64"
 
 	# Comment and uncomment below for the light theme.
 
 	# Solarized Dark color scheme for fzf
-	export FZF_DEFAULT_OPTS="
-	  --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
-	  --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
-	"
+	#export FZF_DEFAULT_OPTS="
+	#  --color fg:-1,bg:-1,hl:$blue,fg+:$base2,bg+:$base02,hl+:$blue
+	#  --color info:$yellow,prompt:$yellow,pointer:$base3,marker:$base3,spinner:$yellow
+	#"
 	## Solarized Light color scheme for fzf
 	#export FZF_DEFAULT_OPTS="
 	#  --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
 	#  --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
 	#"
-}
-_gen_fzf_default_opts
+
+#}
+#_gen_fzf_default_opts
+
+if type rg &> /dev/null; then
+  export FZF_DEFAULT_COMMAND='rg --files'
+  export FZF_DEFAULT_OPTS='-m'
+fi
 
 #### Options ####
-bindkey -v
 setopt appendhistory
 setopt notify
 # type 'dir' instead of 'cd dir'
@@ -141,8 +154,6 @@ alias bc='bc -q -l' # don't show opening message, use math library
 alias yt2mp3='youtube-dl -c --restrict-filenames -x --audio-format mp3 -o "%(title)s.%(ext)s"'
 alias yup='yay -Syu'
 alias pacup='sudo pacman -Syu'
-alias pacins='sudo pacman -S'
-alias pacrem='sudo pacman -Rs'
 # copy with a progress bar.
 alias cpv='rsync -poghb --backup-dir=/tmp/rsync -e /dev/null --progress --'
 alias rs='rsync -avru --progress'
@@ -169,10 +180,13 @@ alias mpdas-stop='systemctl --user stop mpdas'
 
 #### Functions ####
 ## fzf functions ##
+# from the fzf wiki page, might be slightly modified by me
+# https://github.com/junegunn/fzf/wiki/Examples
+
 # search history with fzf
 fzf_history() {
 	zle -I
-	RBUFFER=$(cat $HISTFILE | fzf --tac +s | sed 's/ *[0-9]* *//')
+	RBUFFER=$(history 0 | fzf --tac +s | sed 's/ *[0-9]* *//')
 
 	CURSOR=$#BUFFER
 }
@@ -212,6 +226,21 @@ fkill() {
 	then
 		echo $pid | xargs kill -${1:-9}
 	fi
+}
+
+# like z but with fzf prompt when used without an argument
+unalias z 2> /dev/null
+z() {
+  [ $# -gt 0 ] && _z "$*" && return
+  cd "$(_z -l 2>&1 | fzf --height 40% --nth 2.. --reverse --inline-info +s --tac --query "${*##-* }" | sed 's/^[0-9,.]* *//')"
+}
+
+pacins() {
+	yay -Slq | fzf -q "$1" -m --preview 'yay -Si {1}'| xargs -ro yay -S
+}
+
+pacrem() {
+	yay -Qq | fzf -q "$1" -m --preview 'yay -Qi {1}' | xargs -ro yay -Rns
 }
 
 ## general functions ##

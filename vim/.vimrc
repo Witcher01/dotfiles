@@ -9,8 +9,9 @@ call plug#end()
 runtime ftplugin/man.vim
 
 " set colorscheme
-colorscheme solarized
+"colorscheme solarized
 "colorscheme wal
+colorscheme darkblue
 set background=dark
 
 " include all subfolders in path
