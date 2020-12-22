@@ -8,7 +8,7 @@ static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int snap      = 32;       /* snap pixel */
 static const int showbar            = 1;        /* 0 means no bar */
 static const int topbar             = 1;        /* 0 means bottom bar */
-static const char *fonts[]          = { "xos4 Terminus:size=12" };
+static const char *fonts[]          = { "xos4 Terminus:size=12", "m+ 1mn:size=12" };
 static const char dmenufont[]       = "Anonymous Pro:size=10";
 static const char col_gray1[]       = "#222222";
 static const char col_gray2[]       = "#444444";
@@ -89,6 +89,7 @@ static const char *brightdown[] = { "brightnessctl", "set", "10%-", NULL };
 static const char *mutetoggle[] = { "pactl", "set-sink-mute", "0", "toggle", NULL };
 static const char *audioup[] = { "pactl", "set-sink-volume", "0", "+5%", NULL };
 static const char *audiodown[] = { "pactl", "set-sink-volume", "0", "-5%", NULL };
+static const char *keepmenu[] = { "keepmenu", NULL };
 
 
 static Key keys[] = {
@@ -138,6 +139,7 @@ static Key keys[] = {
 	{ MODKEY|ShiftMask,             XK_p,      spawn,          {.v = lockscreen } },
     /* replace toggle bar with dmenubar */
 	{ MODKEY,                       XK_b,      spawn,       {.v = dmenubar } },
+	{ MODKEY,                       XK_p,      spawn,          {.v = keepmenu } },
 	/* XF86 keys */
 	/* configuration for spotify */
 	{ 0,                            XF86XK_AudioPlay,        spawn, {.v = spotifypause } },
