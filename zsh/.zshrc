@@ -76,8 +76,8 @@ source "/usr/share/fzf/completion.zsh"
 #_gen_fzf_default_opts
 
 if type rg &> /dev/null; then
-  export FZF_DEFAULT_COMMAND='rg --files'
-  export FZF_DEFAULT_OPTS='-m'
+  export FZF_DEFAULT_COMMAND="rg --files"
+  export FZF_DEFAULT_OPTS="-m --height 40% --reverse --bind shift-tab:up,tab:down"
 fi
 
 #### Options ####
@@ -137,6 +137,7 @@ alias cfg-dwm='$EDITOR $XDG_CONFIG_HOME/suckless/dwm/config.h'
 alias cfg-st='$EDITOR $XDG_CONFIG_HOME/suckless/st/config.h'
 alias cfg-newsboat='$EDITOR $HOME/.newsboat/config'
 alias cfg-newsboat-urls='$EDITOR $HOME/.newsboat/urls'
+alias cfg-qutebrowser='$EDITOR $XDG_CONFIG_HOME/qutebrowser/config.py'
 
 ### configurations reload ###
 alias rld-zshrc='source $HOME/.zshrc'
