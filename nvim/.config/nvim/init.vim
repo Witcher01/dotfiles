@@ -116,8 +116,10 @@ let g:ycm_key_invoke_completion = '<C-Space>'
 let g:ycm_key_list_stop_completion = ['<C-y>']
 " stop ycm from letting the autocompletion pop up all the time
 let g:ycm_auto_trigger = 0
+" keep semantic triggers but turn off identifier completer
+"let g:ycm_min_num_of_chars_for_completion = 99
 " only allow ycm to trigger on the specified filetypes
-let g:ycm_filetype_whitelist = {'java':1, 'c':1, 'tex':1}
+let g:ycm_filetype_whitelist = {'java':1, 'c':1, 'tex':1, 'cpp':1}
 " disable auto hinting on hovering over a field
 let g:ycm_auto_hover = ""
 " query ultisnips for possible completion of snippet triggers
@@ -139,7 +141,7 @@ let g:vimtex_compiler_method = 'latexmk'
 " set tex flavor to latex
 let g:tex_flavor = 'latex'
 
-"" ultisnips
+" ultisnips
 let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
