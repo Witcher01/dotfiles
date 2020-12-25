@@ -47,6 +47,8 @@ bind index,pager @ compose-to-sender
 bind index,pager R group-reply
 bind index,pager D purge-message
 bind index <space> collapse-thread
+macro attach O "<enter-command>unset wait_key<enter><shell-escape>rm -f /tmp/mutt-attach.html<enter><save-entry><kill-line>/tmp/mutt-attach.html<enter><shell-escape>qutebrowser /tmp/mutt-attach.html &^A"
+
 
 # compose view options
 set edit_headers                     # show headers when composing
