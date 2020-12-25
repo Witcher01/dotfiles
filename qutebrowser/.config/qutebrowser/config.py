@@ -1819,7 +1819,7 @@ c.tabs.width = '10%'
 ## qutebrowser`.
 ## Type: Dict
 c.url.searchengines = {
-        'DEFAULT': 'https://duckduckgo.com/?q={}',
+        'DEFAULT': 'https://html.duckduckgo.com/html?q={}',
         'aw': 'https://wiki.archlinux.org/?search={}',
         'dict': 'https://dict.cc/?s={}',
         'yt': 'https://www.youtube.com/results?search_query={}',
@@ -2067,7 +2067,11 @@ c.url.start_pages = ["https://html.duckduckgo.com/html"]
 # config.bind('yy', 'yank')
 # config.bind('{{', 'navigate prev -t')
 # config.bind('}}', 'navigate next -t')
-config.bind(',m', 'hint links spawn mpv {hint-url}')
+config.bind(',m', 'hint links spawn ~/.local/bin/umpv {hint-url}')
+config.bind(',M', 'spawn ~/.local/bin/umpv {url}')
+config.bind(';M', 'hint --rapid links spawn ~/.local/bin/umpv {hint-url}')
+config.bind(',t', 'spawn --userscript torify.sh')
+config.bind(',b', 'set-cmd-text -s :buffer')
 
 ## Bindings for caret mode
 # config.bind('$', 'move-to-end-of-line', mode='caret')
