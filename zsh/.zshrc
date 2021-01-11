@@ -77,7 +77,7 @@ source "/usr/share/fzf/completion.zsh"
 
 if type rg &> /dev/null; then
   export FZF_DEFAULT_COMMAND="rg --files"
-  export FZF_DEFAULT_OPTS="-m --height 40% --reverse --bind shift-tab:up,tab:down"
+  export FZF_DEFAULT_OPTS="--height 40% --reverse"
 fi
 
 #### Options ####
@@ -178,6 +178,9 @@ alias check-mail='new_mail $HOME/mail $XDG_CONFIG_HOME/neomutt/.mailsynclast'
 # don't leave mpdas running all the time as listening to something else like spotify messes up scrobbling and what is currently playing
 alias mpdas-start='systemctl --user start mpdas'
 alias mpdas-stop='systemctl --user stop mpdas'
+alias get-shm-procs="ipcs -p | sed '1,/^shmid/d' | awk '{print \$3}' | xargs -I '{}' ps -p {} -o comm="
+# no decorations, behave like cat
+alias bat='bat -p'
 
 #### Functions ####
 ## fzf functions ##
@@ -349,5 +352,21 @@ ffcast-fullscreen-videotrack() {
 		-s $(xwininfo -root | grep 'geometry' |awk '{print $2;}' | cut -d\+ -f1) \
 		-i :0.0 -vcodec libx264 -pix_fmt yuv444p -preset ultrafast -crf 0 \
 		-threads 0 -y "$1"
+}
+
+# remove IPC facilities
+ipc-rem() {
+	if [ "$#" -ne 1 ]; then
+		echo "Usage: $0 shm|sem"
+		return 1
+	fi
+
+	if [ "$1" = "shm" ]; then
+		ipcs_opt="-m"
+	elif [ "$1" = "sem" ]; then
+		ipcs_opt="-s"
+	fi
+
+	ipcs "$ipcs_opt" | sed '/^$/d;/^key/d;/^\-/d' | fzf --multi | awk '{print $2}' | xargs ipcrm "$1"
 }
 
