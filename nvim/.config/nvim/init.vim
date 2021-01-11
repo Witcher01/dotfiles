@@ -9,13 +9,15 @@ Plug 'sirver/ultisnips' " snippet manager
 Plug 'honza/vim-snippets' " various snippets for ultisnips
 "Plug 'artur-shaik/vim-javacomplete2'
 Plug 'lervag/vimtex'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'NLKNguyen/papercolor-theme'
 call plug#end()
 "untime ftplugin/man.vim
 
 " set colorscheme
-"colorscheme solarized
-colorscheme darkblue
+colorscheme PaperColor
+"colorscheme darkblue
 "colorscheme wal
 set background=dark
 
@@ -150,13 +152,15 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <C-f> :Files<CR>
 nnoremap <silent> <Leader>f :Rg<CR>
+nnoremap <silent> <Leader>l :Lines<CR>
 nnoremap <silent> <Leader>/ :BLines<CR>
 nnoremap <silent> <Leader>' :Marks<CR>
 nnoremap <silent> <Leader>g :Commits<CR>
 nnoremap <silent> <Leader>H :Helptags<CR>
-nnoremap <silent> <Leader>hh :History<CR>
 nnoremap <silent> <Leader>h: :History:<CR>
-nnoremap <silent> <Leader>h/ :History/<CR> 
+nnoremap <silent> <Leader>h/ :History/<CR>
+nnoremap <silent> <Leader>s :Snippets<CR>
+nnoremap <silent> <Leader>t :Tags<CR>
 
 imap <c-x><c-f> <plug>(fzf-complete-path)
 
