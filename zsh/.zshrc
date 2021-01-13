@@ -138,6 +138,7 @@ alias cfg-st='$EDITOR $XDG_CONFIG_HOME/suckless/st/config.h'
 alias cfg-newsboat='$EDITOR $HOME/.newsboat/config'
 alias cfg-newsboat-urls='$EDITOR $HOME/.newsboat/urls'
 alias cfg-qutebrowser='$EDITOR $XDG_CONFIG_HOME/qutebrowser/config.py'
+alias cfg-conky='$EDITOR $XDG_CONFIG_HOME/conky/conky.conf'
 
 ### configurations reload ###
 alias rld-zshrc='source $HOME/.zshrc'
